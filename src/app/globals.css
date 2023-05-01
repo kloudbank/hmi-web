@@ -6,6 +6,7 @@ body {
   font-size: 40px;
   font-family: Verdana, sans-serif;
   border: 1px solid #ffffff40;
+  overflow: hidden;
 }
 
 .hero {
