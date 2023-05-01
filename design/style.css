@@ -1,0 +1,228 @@
+html,
+body {
+  height: 100%;
+  color:azure;
+  font-size: 40px;
+  font-family: Verdana, sans-serif;
+  border: 1px solid #ffffff40;
+}
+
+.hero {
+  color:rgb(8, 197, 197);
+  font-size: 0.8em;
+  opacity: 0.4;
+  position: fixed;
+  padding-left:17rem;
+  padding-top:6rem;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  background-image: url("background-1024x585.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.stack-item {
+  /* border: 2px solid #ffffff40; */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top {
+  font-size: 0.5em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+}
+.left, .middle, .right {
+  flex: 1;
+}
+.left {
+  text-align: left;
+  padding-left: 5rem;;
+}
+.middle {
+  text-align: center;
+}
+.middle a {
+  text-decoration: none;
+  color: inherit;
+}
+.right {
+  font-size: 0.7em;
+  text-align: right;
+  padding-right: 5rem;
+}
+.item {
+  font-size: 20px;
+  padding: 16px;
+  display: inline-block;
+}
+
+.nav {
+  font-size: 0.5em;
+  height: 6em;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.content {
+  font-size: 0.5em;
+  flex-grow: 1;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.card {
+  display: flex;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  max-width: 260px;
+  border-radius: 10px;
+  
+  transition: 0.3s all ease-in-out;
+  border: 1px solid rgb(73, 88, 101);
+}
+
+.card > div {
+  padding: 30px 15px;
+  transition: 0.3s all ease-in-out;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.card .icon {
+  color: #ffffff;
+  font-size: 35px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 5px 0px 12px -4px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.card .text {
+  color: #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+
+.card:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  background-color: #29c1f4;
+}
+
+.card:hover .text {
+  background-image: radial-gradient(#96e1fa, #2ac1f4);
+  color: #000000;
+}
+
+.plug {
+  display: flex;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  max-width: 260px;
+  border-radius: 10px;
+  
+  transition: 0.3s all ease-in-out;
+  border: 1px solid rgb(73, 88, 101);
+}
+
+.plug > div {
+  padding: 30px 15px;
+  transition: 0.3s all ease-in-out;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.plug .icon {
+  color: #ffffff;
+  font-size: 35px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 5px 0px 12px -4px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.plug .text {
+  color: #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 200px;
+}
+
+.message {
+  font-size: 2em;
+}
+
+
+.card-button {
+  display: flex;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  max-width: 260px;
+  border-radius: 10px;
+  
+  transition: 0.3s all ease-in-out;
+  border: 1px solid rgb(73, 88, 101);
+  background-color: #29c1f4;
+  opacity: 0.8;
+  
+}
+
+.card-button > div {
+  transition: 0.3s all ease-in-out;
+  display: flex;
+  /* opacity: 0.7; */
+}
+
+.card-button .icon {
+  color: #ffffff;
+  font-size: 35px;
+  margin-top: 5px;
+  margin-left: 5px;
+  position: absolute;
+  z-index: 1;
+}
+
+.card-button .container {
+  color: #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height:10em;
+  width: 12em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-text {
+  font-size: 2em;;
+}
+
+.card-button:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  background-color: #29c1f4;
+}
+
+.card-button:hover .container {
+  background-image: radial-gradient(#96e1fa, #2ac1f4);
+  color: #000000;
+  
+}
