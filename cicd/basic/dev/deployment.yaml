@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: edge-app
+  name: hmi-web
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: hmi-web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: edge-app
+  name: hmi-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hmi-web
+  template:
+    metadata:
+      labels:
+        app: hmi-web
+    spec:
+      containers:
+        - name: hmi-web
+          image: kloudbank/hmi-web:0.0.1
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: edge-app
+  name: hmi-web
+  # annotations:
+  #   cert-manager.io/cluster-issuer: global-issuer
+spec:
+  ingressClassName: nginx
+  # tls:
+  # - hosts:
+  #   - hmi-web.edge.kubepia.net
+  #   secretName: https-certificates-hmi-web
+  rules:
+    - host: hmi-web.edge.kubepia.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hmi-web
+                port:
+                  number: 3000

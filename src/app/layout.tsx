@@ -16,6 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       <body>
         <div className="hero">
           To Build a sustainable world by<br />
@@ -28,8 +29,8 @@ export default function RootLayout({
               <a className="item" href="#">
                 <i className="fas fa-phone"></i>
                 &nbsp;
-                <span>고객센터(1-800-1588-0101)</span></a
-              >
+                <span>고객센터(1-800-1588-0101)</span>
+              </a>
             </div>
             <div className="right">
               <span>v1.0.2</span>
