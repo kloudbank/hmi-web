@@ -11,7 +11,9 @@ const inter = Inter({ subsets: ['latin'] })
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 const useEdgeInfo = () => {
-  const { data, error } = useSWR('http://127.0.0.1:8000/edge', fetcher);
+  // console.log(process.env.NEXT_PUBLIC_EDGE_APP_URL)
+  const EDGE_APP_URL = process.env.NEXT_PUBLIC_EDGE_APP_URL as string
+  const { data, error } = useSWR(EDGE_APP_URL, fetcher);
   return {
     data,
     error,

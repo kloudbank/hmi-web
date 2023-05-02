@@ -8,7 +8,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/api/edge/version',
+        source: '/api/edge/version/latest-mac.yml',
         headers: [
           {
             key: 'Cache-Control',

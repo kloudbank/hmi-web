@@ -1,11 +1,9 @@
-export const fetchCache = 'false'
-
 export async function GET(request: Request) {
-  const res = await (await fetch('http://127.0.0.1:8000/edge')).json()
+  // console.log(process.env.NEXT_PUBLIC_EDGE_APP_URL);
+  const EDGE_APP_URL = process.env.NEXT_PUBLIC_EDGE_APP_URL as string
+  const res = await (await fetch(EDGE_APP_URL)).json()
   
-  const yml = `
-version: ${res.version}
-`
+  const yml = `version: ${res.version}`
 
-return new Response(yml)
+  return new Response(yml)
 }
