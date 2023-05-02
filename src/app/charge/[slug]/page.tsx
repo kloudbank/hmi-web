@@ -34,13 +34,13 @@ export default function page({
       <div className="stack-item charging ">
         <div className='charging-box-small'>
           <h3>차량 정보</h3>
+          <div className="battery">
+            <div className="battery-level"><b>25%</b></div>
+          </div>
           <ul>
             <li>Model: Tesla xxx</li>
             <li>Battery: SKOn bx-002-22</li>
           </ul>
-          <div className="battery">
-            <div className="battery-level"><b>25%</b></div>
-          </div>
         </div>
         <div className='charging-box'>
           <h3>충전 상태</h3>
