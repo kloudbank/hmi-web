@@ -11,11 +11,9 @@ import { translateEdge } from './utils/translate'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
-
 const useEdgeInfo = async () => {
   const EDGE_APP_URL = process.env.NEXT_PUBLIC_EDGE_APP_URL as string
-  const res = await fetch(EDGE_APP_URL);
+  const res = await fetch(EDGE_APP_URL, { cache: 'no-store' });
   return await res.json()
 };
 
@@ -23,7 +21,7 @@ const useChargeStations = async () => {
   const POSTGREST_URL = process.env.NEXT_PUBLIC_POSTGREST_URL as string
   const EDGE_OBJECT_ID = process.env.NEXT_PUBLIC_OBJECT_ID;
   const getChargeInfo = POSTGREST_URL + '/charging_stations?object_id=eq.' + EDGE_OBJECT_ID
-  const res = await fetch(getChargeInfo);
+  const res = await fetch(getChargeInfo, { cache: 'no-store' });
   return await res.json()
 }
 

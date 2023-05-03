@@ -5,14 +5,14 @@ const nextConfig = {
     appDir: true,
     outputStandalone: true,
   },
-  async headers() {
+  headers() {
     return [
       {
-        source: '/api/edge/version/latest-mac.yml',
+        source: '/:path*',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-store, max-age=0',
+            value: 'no-store',
           },
         ],
       },
