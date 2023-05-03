@@ -1,7 +1,5 @@
-import * as superagent from 'superagent';
-
 export async function GET(request: Request) {
-  const isServer = typeof window === "undefined";
+  // const isServer = typeof window === "undefined";
 
   const EDGE_APP_URL = process.env.NEXT_PUBLIC_EDGE_APP_URL as string
   
@@ -13,8 +11,17 @@ export async function GET(request: Request) {
   //   res = { version: "" };
   // }
   
-  const res = await superagent.get(EDGE_APP_URL);
-  const yml = `version: ${res.body.version}`
+  // const yml = `version: ${res.version}`
+
+  // return new Response(yml)
+
+  const res = await fetch(EDGE_APP_URL, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const edgeInfo = await res.json();
+  const yml = `version: ${edgeInfo.version}`
 
   return new Response(yml)
 }
