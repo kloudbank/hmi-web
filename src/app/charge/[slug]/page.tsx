@@ -2,26 +2,78 @@
 "use client"
 import React from 'react'
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import NavButton from '@/component/NavButton';
 import RenderType from '@/component/RenderType';
-import { useRouter } from 'next/navigation';
-
-
+import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function page({
-  params
+  params,
+  // searchParams,
 }: {
-  params: { slug: string }
+  params: { slug: string },
+  // searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  const searchParams = useSearchParams()
+  const chargeInfo = searchParams.get("chargeInfo");
+
+  const POSTGREST_URL = process.env.NEXT_PUBLIC_POSTGREST_URL as string
+  const POSTGREST_TOKEN = process.env.NEXT_PUBLIC_POSTGREST_TOKEN as string
+  const EDGE_OBJECT_ID = process.env.NEXT_PUBLIC_OBJECT_ID;
+  const getChargeInfo = POSTGREST_URL + '/charging_stations?object_id=eq.' + EDGE_OBJECT_ID
+
+  const [cpStat, setCpStat] = useState(1);
+
   const router = useRouter();
   const homeHandler = () => {
-    router.push("/")
+    if (cpStat == 99) {
+      alert('Alert 발생 중입니다.');
+    } else if (cpStat == 2) {
+      alert('충전 중입니다.');
+    } else {
+      router.push("/");
+    }
   }
+
+  const startHandler = () => {
+
+    if (cpStat == 99) {
+      alert('Alert 발생 중입니다.');
+    } else {
+      const changeCpStat = cpStat == 1 ? 2 : 1;
+
+      fetch(getChargeInfo, {
+        method: "PATCH",
+        body: JSON.stringify({
+          "cp_stat": changeCpStat,
+        }),
+        headers: {
+          "Authorization": "Bearer " + POSTGREST_TOKEN,
+          "content-type": "application/json",
+        },
+      }).catch((e) => console.log(e)).then(() => setCpStat(changeCpStat));
+    }
+  }
+
+  const alertHandler = () => {
+    const changeCpStat = cpStat == 99 ? 1 : 99;
+
+    fetch(getChargeInfo, {
+      method: "PATCH",
+      body: JSON.stringify({
+        "cp_stat": changeCpStat,
+      }),
+      headers: {
+        "Authorization": "Bearer " + POSTGREST_TOKEN,
+        "content-type": "application/json",
+      },
+    }).catch((e) => console.log(e)).then(() => setCpStat(changeCpStat));
+  }
+
   return (
     <>
       <div className="stack-item nav">
         <div className="plug" >
-          <RenderType chargeType={params.slug} />
+          <RenderType chargeInfo={chargeInfo} />
         </div>
         <div className="message"><span>충전을 시작 해주세요</span></div>
         <div className="card" onClick={homeHandler}>
@@ -62,8 +114,9 @@ export default function page({
           </div>
         </div>
         <div className='charging-box-command'>
-          <div className='charging-box-command-button'>시작</div>
+          <div className='charging-box-command-button' onClick={startHandler}>{cpStat == 2? '중지' : '시작'}</div>
           <div className='charging-box-command-button' onClick={homeHandler}>취소</div>
+          <div className='charging-box-alert-button' onClick={alertHandler}>{cpStat != 99? 'Alert' : 'Stop'}</div>
         </div>
       </div>
       <div className="stack-item nav">

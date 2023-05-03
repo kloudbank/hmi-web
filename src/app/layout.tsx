@@ -19,10 +19,6 @@ export default async function RootLayout({
     <html lang="en">
       <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       <body>
-        <div className="hero">
-          To Build a sustainable world by<br />
-          connecting mobility and clean envergy
-        </div>
         <div className="main">
           {children}
         </div>

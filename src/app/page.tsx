@@ -7,38 +7,51 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 
+import { translateEdge } from './utils/translate'
+
 const inter = Inter({ subsets: ['latin'] })
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
-const useEdgeInfo = () => {
-  // console.log(process.env.NEXT_PUBLIC_EDGE_APP_URL)
+
+const useEdgeInfo = async () => {
   const EDGE_APP_URL = process.env.NEXT_PUBLIC_EDGE_APP_URL as string
-  const { data, error } = useSWR(EDGE_APP_URL, fetcher);
-  return {
-    data,
-    error,
-  };
+  const res = await fetch(EDGE_APP_URL);
+  return await res.json()
 };
 
-export default function Home() {
+const useChargeStations = async () => {
+  const POSTGREST_URL = process.env.NEXT_PUBLIC_POSTGREST_URL as string
+  const EDGE_OBJECT_ID = process.env.NEXT_PUBLIC_OBJECT_ID;
+  const getChargeInfo = POSTGREST_URL + '/charging_stations?object_id=eq.' + EDGE_OBJECT_ID
+  const res = await fetch(getChargeInfo);
+  return await res.json()
+}
 
-  // const router = useRouter();
+export default async function Home() {
 
-  const { data, error } = useEdgeInfo();
-  const [edge, setEdge] = useState<any>({});
-  useEffect(() => {
-    if (data) {
-      setEdge(data);
-    }
-  }, [data]);
+  const edge = await useEdgeInfo();
+  // const [edge, setEdge] = useState<any>({});
+  // useEffect(() => {
+  //   if (data) {
+  //     setEdge(data);
+  //   }
+  // }, [data]);
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) {
-    return <div>Loading...</div>;
-  }
+  // if (error) return <div>Failed to load</div>;
+  // if (!data) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // const { data, error } = useChargeStations();
+  const charge = await useChargeStations();
+  const chargeInfo = translateEdge(charge[0]);
 
   return (
     <>
+      <div className="hero">
+        To Build a sustainable world by<br />
+        connecting mobility and clean envergy
+      </div>
       <div className="stack-item top">
         <div className="left">SK Signet</div>
         <div className="middle">
@@ -50,44 +63,55 @@ export default function Home() {
         <div className="right">
           <span>HMI v1.0.0</span><br />
           {/* <span>EDGE v{edge.version}</span> */}
-          <span>EDGE v{data.version}</span>
+          <span>EDGE v{edge.version}</span>
         </div>
       </div>
       <div className="stack-item nav">
         <div className="plug" style={{ border: "0px", }}>
         </div>
-        <div className="message"><span>충전 방식을 선택해주세요</span></div>
+        <div className="message"><span>충전 방식 및 급속/완속 여부를 확인 후<br/>충전해주세요</span></div>
         <div className="plug" style={{ border: "0px", }}>
         </div>
       </div>
       <div className="stack-item content ">
-        <Link href={"/charge/ac3"}>
-          <div className="card-button">
+        {/* <Link href={"/charge/ac3"}> */}
+        <div>
+          <div className="card-info">
             <div className="icon">
               <i className="fas fa-calendar-plus"></i>
             </div>
             <div className="container">
-              <span className="button-text">AC 3상</span>
+              <span className="button-text">{chargeInfo.cp_tp_nm}</span>
             </div>
           </div>
-        </Link>
-        <Link href={"charge/dcd"}>
-        <div className="card-button">
-          <div className="icon">
-            <i className="fas fa-bolt"></i>
-          </div>
-          <div className="container">
-            <span className="button-text">DC 차데모</span>
+        </div>
+        {/* </Link> */}
+        {/* <Link href={"charge/dcd"}> */}
+        <div>
+          <div className="card-info">
+            <div className="icon">
+              <i className="fas fa-bolt"></i>
+            </div>
+            <div className="container">
+              <span className="button-text">{chargeInfo.charge_tp_nm}</span>
+            </div>
           </div>
         </div>
-        </Link>
-        <Link href={"/charge/dcc"}>
+        {/* </Link> */}
+        <Link 
+          href={{
+            pathname: '/charge/detail',
+            // query: { chargeInfo: JSON.stringify(chargeInfo) },
+            query: { chargeInfo: `{ "object_id": "${chargeInfo.object_id}", "cp_tp": "${chargeInfo.cp_tp}", "charge_tp": "${chargeInfo.charge_tp}" }` },
+          }}
+          // as={`/charge/${chargeInfo.object_id}`}
+        >
         <div className="card-button">
           <div className="icon">
             <i className="fas fa-plug"></i>
           </div>
           <div className="container">
-            <span className="button-text">DC 콤보</span>
+            <span className="button-text">충전하기</span>
           </div>
         </div>
         </Link>

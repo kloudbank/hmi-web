@@ -12,11 +12,11 @@ body {
 }
 
 .hero {
-  color:rgb(8, 197, 197);
+  color:rgb(42, 109, 109);
   font-size: 0.8em;
   opacity: 0.4;
   position: fixed;
-  padding-left:15rem;
+  padding-left:12rem;
   padding-top:6rem;
 }
 
@@ -169,6 +169,7 @@ a {
   z-index: 1;
 }
 .plug .text {
+  font-size: 16px;
   color: #ffffff;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -176,14 +177,54 @@ a {
 }
 
 .message {
-  font-size: 2em;
+  font-size: 30px;
 }
 
 
-.card-button {
+.card-info {
   display: flex;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-  max-width: 260px;
+  max-width: 220px;
+  border-radius: 10px;
+  
+  transition: 0.3s all ease-in-out;
+  border: 1px solid rgb(73, 88, 101);
+  background-color: #9b9d9f;
+  opacity: 0.8;
+  
+}
+
+.card-info > div {
+  transition: 0.3s all ease-in-out;
+  display: flex;
+  /* opacity: 0.7; */
+}
+
+.card-info .icon {
+  color: #ffffff;
+  font-size: 35px;
+  margin-top: 5px;
+  margin-left: 5px;
+  position: absolute;
+  z-index: 1;
+}
+
+.card-info .container {
+  color: #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height:10em;
+  width: 12em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-button {
+  margin-left: 10px;
+  display: flex;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  max-width: 300px;
   border-radius: 10px;
   
   transition: 0.3s all ease-in-out;
@@ -292,6 +333,20 @@ a {
 .charging-box-command-button:hover {
   background-color: #29c1f4 ;
   color: #000000;
+  cursor: pointer;
+}
+
+.charging-box-alert-button {
+  opacity: 0.8;
+  border: 1px solid rgb(233, 91, 70);
+  height: 35%;
+  width : 100%;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  background-color: rgb(245, 71, 71);
   cursor: pointer;
 }
 
