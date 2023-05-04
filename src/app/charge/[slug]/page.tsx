@@ -39,12 +39,23 @@ export default function page({
     if (cpStat == 99) {
       alert('Alert 발생 중입니다.');
     } else {
-      const changeCpStat = cpStat == 1 ? 2 : 1;
+      
+      let changeCpStat = 1, changeCpVolt, changeCpAmp;
+      if (cpStat == 1) {
+        changeCpStat = 2;
+        changeCpVolt = 200;
+        changeCpAmp = 23;
+      } else {
+        changeCpVolt = 80;
+        changeCpAmp = 5;
+      }
 
       fetch(getChargeInfo, {
         method: "PATCH",
         body: JSON.stringify({
           "cp_stat": changeCpStat,
+          "cp_volt": changeCpVolt,
+          "cp_amp": changeCpAmp,
         }),
         headers: {
           "Authorization": "Bearer " + POSTGREST_TOKEN,
@@ -61,6 +72,8 @@ export default function page({
       method: "PATCH",
       body: JSON.stringify({
         "cp_stat": changeCpStat,
+        "cp_volt": 80,
+        "cp_amp": 5,
       }),
       headers: {
         "Authorization": "Bearer " + POSTGREST_TOKEN,
@@ -114,9 +127,8 @@ export default function page({
           </div>
         </div>
         <div className='charging-box-command'>
-          <div className='charging-box-command-button' onClick={startHandler}>{cpStat == 2? '중지' : '시작'}</div>
-          <div className='charging-box-command-button' onClick={homeHandler}>취소</div>
-          <div className='charging-box-alert-button' onClick={alertHandler}>{cpStat != 99? 'Alert' : 'Stop'}</div>
+          <div className={'charging-box-command-button ' + (cpStat == 2 ? 'ing-charge' : '')} onClick={startHandler}>{cpStat == 2? '중지' : '시작'}</div>
+          <div className={'charging-box-alert-button ' + (cpStat == 99 ? 'ing-alert' : '')} onClick={alertHandler}>{cpStat != 99? 'Alert' : 'Stop'}</div>
         </div>
       </div>
       <div className="stack-item nav">

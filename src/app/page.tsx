@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 
 import { translateEdge } from './utils/translate'
+import YoutubeEmbed from '../component/YoutubeEmbed'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -114,7 +115,10 @@ export default async function Home() {
         </div>
         </Link>
       </div>
-      <div className="stack-item nav">
+      <div className="video-item">
+        <div className="middle">
+          <YoutubeEmbed embedId="y_7_YTmXd5c" />
+        </div>
       </div>
     </>
   )
