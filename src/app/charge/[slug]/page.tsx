@@ -96,7 +96,7 @@ export default function page({
           <div className="text">Home</div>
         </div>
       </div>
-      <div className="stack-item charging ">
+      <div className="stack-item charging charging-1920">
         <div className='charging-box-small'>
           <h3>차량 정보</h3>
           <div className="battery">
